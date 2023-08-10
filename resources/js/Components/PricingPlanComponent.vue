@@ -48,7 +48,7 @@
                 </div>
                 <div class="plan">
                     <div class="content-wrap">
-                        <span class="plan__title">silver card</span>
+                        <span class="plan__title">platinum card</span>
                         <div class="price">
                             <sup>$</sup>
                             <span>9.99</span>
