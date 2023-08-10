@@ -23,7 +23,7 @@
                         <div class="credit-card">
                             <img src="https://www.transparentpng.com/thumb/credit-card/8p4jX1-blank-credit-card-pic.png" alt="Blank Credit Card Pic @transparentpng.com">
                         </div>
-                        <span class="desc">Start your business with a simple account to manage it</span>
+                        <span class="desc">Start your business with a simple account to manage it.</span>
                         <hr>
                         <ul class="benefits">
                             <li class="item">
@@ -57,7 +57,7 @@
                         <div class="credit-card">
                             <img src="https://www.transparentpng.com/thumb/credit-card/8p4jX1-blank-credit-card-pic.png" alt="Blank Credit Card Pic @transparentpng.com">
                         </div>
-                        <span class="desc">Available for businesses with large payments business models</span>
+                        <span class="desc">Available for businesses with large payments business models.</span>
                         <hr>
                         <ul class="benefits">
                             <li class="item">
