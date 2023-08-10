@@ -20,6 +20,7 @@ import MainNavigationComponent from '@/Components/MainNavigationComponent.vue';
         .wrapper {
             max-width: 1440px;
             margin: 0 auto;
+            padding: 0 40px;
             .row {
                 display: flex;
                 justify-content: space-between;

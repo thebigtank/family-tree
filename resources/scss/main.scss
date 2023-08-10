@@ -1,0 +1,201 @@
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: #fcfeff;
+}
+
+.pricing-plan {
+    padding: 60px 0;
+    margin-bottom: 180px;
+
+    .wrapper {
+        max-width: 1220px;
+        margin: 0 auto;
+
+        .content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            margin-bottom: 80px;
+
+            .large-heading {
+                text-transform: capitalize;
+                font-size: 58px;
+                font-weight: 900;
+                margin-bottom: 20px;
+                line-height: 1.4;
+                color: #142c5b;
+            }
+
+            .label {
+                font-size: 18px;
+                font-weight: 500;
+                color: #8695ad;
+            }
+        }
+
+        .pricing-tab {
+            text-align: center;
+            background-color: #eff6fc;
+            padding: 8px;
+            max-width: max-content;
+            margin: 0 auto;
+            border-radius: 16px;
+            margin-bottom: 80px;
+
+            .btn {
+                padding: 14px 30px;
+                text-transform: capitalize;
+                border-radius: 8px;
+                font-weight: 600;
+                transition: background-color 200ms ease-in-out;
+                color: #41557b;
+
+                &.active {
+                    background-color: #ffffff;
+                    color: #0145ff;
+                    box-shadow: 1px 3px 6px -6px #898989;
+                }
+            }
+        }
+
+        .pricing-plans {
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+
+            .plan {
+                max-width: max-content;
+                height: fit-content;
+                background-color: #eef3f7;
+                padding: 28px;
+                border-radius: 48px;
+                cursor: pointer;
+                
+                .content-wrap {
+                    width: 500px;
+                    height: 100%;
+                    padding: 60px;
+                    text-align: center;
+                    background-color: #ffffff;
+                    border-radius: 24px;
+                    box-shadow: 0px 0px 16px -8px rgba(137, 137, 137, 0.6);
+                    transition: all 250ms ease-in-out;
+
+
+                    .plan__title {
+                        text-transform: uppercase;
+                        font-size: 26px;
+                        font-weight: 500;
+                        margin-bottom: 32px;
+                        display: block;
+                    }
+
+                    .price {
+                        line-height: 1;
+                        margin-bottom: 10px;
+                        sup {
+                            font-size: 22px;
+                            font-weight: 600;
+                            position: relative;
+                            top: -40px;
+                            right: 8px;
+                            opacity: 0.5;
+                        }
+
+                        span {
+                            font-size: 68px;
+                            font-weight: 900;
+                        }
+                    }
+
+                    .price-label {
+                        display: block;
+                        font-size: 18px;
+                        font-weight: 600;
+                        margin-bottom: 18px;
+                        opacity: 0.5;
+                    }
+
+                    .credit-card {
+                        margin: 0 auto;
+                        margin-bottom: 10px;
+                        width: 180px;
+                    }
+
+                    .desc {
+                        max-width: 350px;
+                        margin: 0 auto;
+                        margin-bottom: 40px;
+                        text-align: center;
+                        display: block;
+                        font-size: 22px;
+                        font-weight: 400;
+                        opacity: 0.5;
+                    }
+
+                    .benefits {
+                        margin: 40px 0;
+                        .item {
+                            margin-bottom: 30px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: flex-start;
+                            gap: 10px;
+
+                            ion-icon {
+                                font-size: 26px;
+                                color: #0bdaa9;
+                            }
+
+                            span {
+                                font-weight: 600;
+                                color: #142c5b;
+                            }
+                        }
+                    }
+
+                    .btn {
+                        width: 100%;
+                    }
+
+                    &:hover {
+                        background-color: #0145ff;
+                        color: #fff;
+
+                        .price {
+                            sup {
+                                opacity: 1;
+                            }
+                        }
+
+                        .price-label, .desc {
+                            opacity: 1;
+                        }
+
+                        hr {
+                            opacity: 0.7;
+                        }
+
+                        .benefits {
+                            .item {
+                                ion-icon {
+                                    color: #fff;
+                                }
+
+                                span {
+                                    color: #fff;
+                                }
+                            }
+                        }
+
+
+                        .btn {
+                            background-color: #ffffff;
+                            color: #0145ff;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
