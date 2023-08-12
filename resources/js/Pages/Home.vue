@@ -4,8 +4,6 @@
     <HeaderComponent />
     <PricingPlanComponentVue />
 
-    
-
 </template>
 
 <script setup>

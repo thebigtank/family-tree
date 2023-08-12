@@ -8,8 +8,6 @@
             <li><a href="#">login</a></li>
         </ul>
         <ButtonComponent :type="['outline']">get started</ButtonComponent>
-        <!-- <ButtonComponent :type="['secondary']">get started</ButtonComponent>
-        <ButtonComponent :type="['outline']">get started</ButtonComponent> -->
     </nav>
 </template>
 
