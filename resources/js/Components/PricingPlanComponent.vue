@@ -5,11 +5,8 @@
                 <h1 class="large-heading">increase your payment businesses of all sizes.</h1>
                 <span class="label">Choose the plan that works best for you, feel free to contact us.</span>
             </div>
-
-            <div class="pricing-tab">
-                <button class="btn" :class="{ active: isMonthlyBilling }" @click="isMonthlyBilling = true">bill monthly</button>
-                <button class="btn" :class="{ active: !isMonthlyBilling }" @click="isMonthlyBilling = false">bill anually</button>
-            </div>
+            
+            <PricingPlanTabComponent :isMonthlyBilling="isMonthlyBilling" @update:isMonthlyBilling="updateBilling" />
 
             <div class="pricing-plans">
                 <div v-for="(plan, index) in pricingPlans" :key="index" class="plan" :class="{ discounted: !isMonthlyBilling  && plan.discount }">
@@ -47,9 +44,14 @@
 
 <script setup>
 import ButtonComponent from './ButtonComponent.vue';
+import PricingPlanTabComponent from './PricingPlanTabComponent.vue';
 import { ref } from 'vue';
 
 let isMonthlyBilling = ref(true);
+
+const updateBilling = (newValue) => {
+    isMonthlyBilling.value = newValue;
+};
 
 const pricingPlans = [
     {
