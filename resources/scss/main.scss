@@ -61,104 +61,150 @@ body {
         .pricing-plans {
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
             gap: 80px;
 
             .plan {
-                max-width: max-content;
-                height: fit-content;
-                background-color: #eef3f7;
-                padding: 28px;
-                border-radius: 48px;
-                cursor: pointer;
+                max-width: 540px;
                 
-                .content-wrap {
-                    width: 500px;
-                    height: 100%;
-                    padding: 60px;
+                .plan-card {
+                    max-width: max-content;
+                    height: fit-content;
+                    background-color: #eef3f7;
+                    padding: 32px;
+                    border-radius: 40px;
+                    margin: auto;
+                    // cursor: pointer;
                     text-align: center;
-                    background-color: #ffffff;
-                    border-radius: 24px;
-                    box-shadow: 0px 0px 16px -8px rgba(137, 137, 137, 0.6);
-                    transition: all 250ms ease-in-out;
-
-
-                    .plan__title {
-                        text-transform: uppercase;
-                        font-size: 26px;
-                        font-weight: 500;
-                        margin-bottom: 32px;
-                        display: block;
-                    }
-
-                    .price {
-                        line-height: 1;
-                        margin-bottom: 10px;
-                        sup {
-                            font-size: 22px;
-                            font-weight: 600;
-                            position: relative;
-                            top: -40px;
-                            right: 8px;
-                            opacity: 0.5;
-                        }
-
-                        span {
-                            font-size: 68px;
-                            font-weight: 900;
-                        }
-                    }
-
-                    .price-label {
-                        display: block;
-                        font-size: 18px;
-                        font-weight: 600;
-                        margin-bottom: 18px;
-                        opacity: 0.5;
-                    }
-
-                    .credit-card {
-                        margin: 0 auto;
-                        margin-bottom: 10px;
-                        width: 180px;
-                    }
-
-                    .desc {
-                        max-width: 350px;
-                        margin: 0 auto;
-                        margin-bottom: 40px;
+                    
+                    .card {
+                        position: relative;
+                        height: 100%;
+                        padding: 60px;
                         text-align: center;
-                        display: block;
-                        font-size: 22px;
-                        font-weight: 400;
-                        opacity: 0.5;
-                    }
+                        background-color: #ffffff;
+                        border-radius: 24px;
+                        box-shadow: 0px 0px 16px -8px rgba(137, 137, 137, 0.6);
+                        transition: all 250ms ease-in-out;
 
-                    .benefits {
-                        margin: 40px 0;
-                        .item {
-                            margin-bottom: 30px;
-                            display: flex;
-                            align-items: center;
-                            justify-content: flex-start;
-                            gap: 10px;
+                        .discount-label {
+                            background-color: #1acffc;
+                            color: #ffffff;
+                            font-weight: 700;
+                            font-size: 14px;
+                            padding: 12px 18px;
+                            text-transform: uppercase;
+                            border-bottom-left-radius: 10px;
+                            border-bottom-right-radius: 10px;
+                            position: absolute;
+                            top: -15px;
+                            right: 50%;
+                            transform: translate(50%, 0);
 
-                            ion-icon {
-                                font-size: 26px;
-                                color: #0bdaa9;
+                            &::before,
+                            &::after {
+                                content: "";
+                                position: absolute;
+                                width: 10px;
+                                height: 0;
+                                border-bottom: 15px solid #349bf4;
+                                top: 0;
+                            }
+
+                            &::before {
+                                border-left: 10px solid transparent;
+                                left: -10px;
+                            }
+
+                            &::after {
+                                border-right: 10px solid transparent;
+                                right: -10px;
+                            }
+                        }
+
+
+                        .plan__title {
+                            text-transform: uppercase;
+                            font-size: 26px;
+                            font-weight: 500;
+                            margin-bottom: 32px;
+                            display: block;
+                        }
+
+                        .price {
+                            line-height: 1;
+                            margin-bottom: 10px;
+
+                            sup {
+                                font-size: 22px;
+                                font-weight: 600;
+                                position: relative;
+                                top: -40px;
+                                right: 8px;
+                                opacity: 0.5;
                             }
 
                             span {
-                                font-weight: 600;
-                                color: #142c5b;
+                                font-size: 68px;
+                                font-weight: 900;
                             }
                         }
-                    }
 
-                    .btn {
-                        width: 100%;
-                    }
+                        .price-label {
+                            display: block;
+                            font-size: 18px;
+                            font-weight: 600;
+                            margin-bottom: 18px;
+                            opacity: 0.5;
+                        }
 
-                    &:hover {
+                        .credit-card {
+                            margin: 0 auto;
+                            margin-bottom: 10px;
+                            width: 180px;
+                        }
+
+                        .desc {
+                            max-width: 350px;
+                            margin: 0 auto;
+                            margin-bottom: 40px;
+                            text-align: center;
+                            display: block;
+                            font-size: 22px;
+                            font-weight: 400;
+                            opacity: 0.5;
+                        }
+
+                        .benefits {
+                            margin: 40px 0;
+
+                            .item {
+                                margin-bottom: 30px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: flex-start;
+                                gap: 10px;
+
+                                ion-icon {
+                                    font-size: 26px;
+                                    color: #0bdaa9;
+                                }
+
+                                span {
+                                    font-weight: 600;
+                                    color: #142c5b;
+                                }
+                            }
+                        }
+
+                        .btn {
+                            width: 100%;
+                        }
+                    }
+                }
+
+                &.discounted {
+                    .plan-card .card {
                         background-color: #0145ff;
                         color: #fff;
 
@@ -168,7 +214,8 @@ body {
                             }
                         }
 
-                        .price-label, .desc {
+                        .price-label,
+                        .desc {
                             opacity: 1;
                         }
 
@@ -190,10 +237,24 @@ body {
 
 
                         .btn {
-                            background-color: #ffffff;
-                            color: #0145ff;
+                            background-color: transparent;
+                            border: 2px solid #ffffff;
+                            color: #ffffff;
+
+                            &:hover {
+                                background-color: #fff;
+                                color: #0145ff;
+                            }
                         }
                     }
+                }
+
+                .discount-message {
+                    text-align: center;
+                    display: block;
+                    margin-top: 20px;
+                    font-size: 22px;
+                    padding: 0 80px;
                 }
             }
         }
