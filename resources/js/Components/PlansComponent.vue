@@ -35,39 +35,8 @@
 <script setup>
 import ButtonComponent from './ButtonComponent.vue';
 
-const props = defineProps({
-    isMonthlyBilling: Boolean,
-});
+defineProps(['isMonthlyBilling','pricingPlans']);
 
-const pricingPlans = [
-    {
-        title: 'silver',
-        monthlyPrice: 9.99,
-        annualPrice: 109.99,
-        benefits: [
-            'Free payment to other Pay accounts',
-            '25 free local transfers',
-            'Free ATM withdrawals in USD',
-            '5 free international transfers fee'
-        ],
-        desc: 'Start your business with a simple account to manage it.',
-    },
-    {
-        title: 'platinum',
-        monthlyPrice: 49.99,
-        annualPrice: 549.99,
-        discount: '20',
-        benefits: [
-            'Free payment to other Pay accounts',
-            'Unlimited free local transfers',
-            'Free ATM withdrawals in USD & Euros',
-            'Unlimited International transfers fee',
-            'Priority 24/7 support',
-            'Virtual card payment'
-        ],
-        desc: 'Available for businesses with large payments business models.',
-    }
-];
 </script>
 
 <style lang="scss" scoped>

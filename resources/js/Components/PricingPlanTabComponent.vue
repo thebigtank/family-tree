@@ -1,25 +1,27 @@
 <template>
     <div class="pricing-tab">
-        <button class="btn" :class="{ active: isMonthlyBilling }" @click="updateBilling(true)">bill monthly</button>
-        <button class="btn" :class="{ active: !isMonthlyBilling }" @click="updateBilling(false)">bill anually</button>
+        <button v-for="billingType in billingTypes" :key="billingType.id"
+            :class="['btn', { 'active': isMonthlyBilling === billingType.isMonthly }]"
+            @click="updateBilling(billingType.isMonthly)">
+            {{ billingType.label }}
+        </button>
     </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+defineProps(['isMonthlyBilling']);
+const emit = defineEmits(['update:is-monthly-billing']);
 
-const props = defineProps(['isMonthlyBilling']);
-const emits = defineEmits();
-
-let isMonthlyBilling = ref(true);
+const billingTypes = [
+    { id: 1, label: 'Bill Monthly', isMonthly: true },
+    { id: 2, label: 'Bill Annually', isMonthly: false },
+];
 
 const updateBilling = (isMonthly) => {
-    isMonthlyBilling.value = isMonthly;
-    emits('update:isMonthlyBilling', isMonthly); // Emitting the value to the parent
+    emit('update:is-monthly-billing', isMonthly);
 };
-
 </script>
 
 <style lang="scss" scoped>
-
+/* Add your scoped styles here */
 </style>
