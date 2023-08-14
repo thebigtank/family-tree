@@ -5,6 +5,7 @@ body {
 
 .pricing-plan {
     padding: 80px 0;
+    margin-bottom: 80px;
 
     .wrapper {
         max-width: 1220px;
@@ -263,6 +264,7 @@ body {
 
 .services-block {
     padding: 80px 0;
+    margin-bottom: 40px;
 
     .wrapper {
         max-width: 1220px;
@@ -348,5 +350,408 @@ body {
                 }
             }
         }
+    }
+}
+
+
+@mixin marquee($duration: 20s, $direction: 'left', $value: 50%) {
+    @keyframes marquee {
+        to {
+            @if $direction=='left' {
+                transform: translateX((-$value));
+            }
+
+            @else {
+                transform: translateX($value);
+            }
+        }
+    }
+
+    animation-name: marquee;
+    animation-duration: $duration;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    white-space: nowrap;
+}
+
+.brands-block {
+    padding: 80px 0;
+
+    .wrapper {
+        // max-width: 1220px;
+        margin: 0 auto;
+        padding: 0 40px;
+        overflow: hidden;
+
+        .heading {
+            margin: 0 auto;
+            text-align: center;
+            margin-bottom: 40px;
+
+            .label {
+                font-size: 20px;
+                font-weight: 500;
+                color: #8695ad;
+            }
+        }
+
+        .brands {
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 60px;
+            @include marquee(60s, left, 50%);
+            .image {
+                width: 180px;
+                img {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php class cpt_settings {
+
+    static function community_permalink_structure($post_link, $post) {
+        if ('community'===$post->post_type && 'publish'===$post->post_status) {
+            $post_id=get_parent_id();
+
+            $state=strtolower(get_field('state', $post_id));
+            $city=strtolower(get_field('city', $post_id));
+
+            // Replace spaces with dashes and URL encode the state and city names
+            $state=urlencode(str_replace(' ', '-', $state));
+            $city=urlencode(str_replace(' ', '-', $city));
+
+            $post_link=str_replace('%state%', $state, $post_link);
+            $post_link=str_replace('%city%', $city, $post_link);
+        }
+
+        return $post_link;
+    }
+
+    static function community_rewrite_rules() {
+        add_rewrite_tag('%state%', '([^/]+)');
+        add_rewrite_tag('%city%', '([^/]+)');
+        add_rewrite_rule('^senior-living/([^/]+)/([^/]+)/([^/]+)/?$', 'index.php?post_type=community&state=$matches[1]&city=$matches[2]&name=$matches[3]', 'top');
+    }
+
+
+    //======================================================================
+    // ADDING THE CITY AND STATE ACF FIELD DATA TO THE COMMUNITY
+    //====================================================================== 
+    static function add_city_and_state_to_permalink($permalink, $post_id, $leavename) {
+
+        if (get_post_type($post_id)==='community') {
+
+            $post=get_post($post_id);
+
+            if ($post) {
+
+                if (is_admin()) {
+                    $post_id=get_parent_id();
+                }
+
+                $address=get_field('address', $post_id);
+
+                if ($address) {
+                    $state=strtolower($address['state_short']);
+                    $city=prep_url($address['city']);
+
+                    $permalink=str_replace('%state%', $state, $permalink);
+                    $permalink=str_replace('%city%', $city, $permalink);
+
+                    // $permalink = str_replace('senior-living/', "senior-living/$state/$city/", $permalink);
+                }
+            }
+        }
+
+        return $permalink;
+    }
+
+    //======================================================================
+    // DISABLE GUTENBERG
+    //======================================================================    
+    static function prefix_disable_gutenberg($current_status, $post_type) {
+        // Use your post type key instead of 'product'
+        if ($post_type==='unit'|| $post_type==='place'
+        ) return false;
+        return $current_status;
+    }
+
+    //======================================================================
+    // CREATE CUSTOM POST TYPE
+    //======================================================================    
+    static function units() {
+        $labels=array('name'=> _x('Units', 'Event General Name', 'text_domain'),
+            'singular_name'=> _x('Unit', 'Event Singular Name', 'text_domain'),
+            'menu_name'=> __('Units', 'text_domain'),
+            'name_admin_bar'=> __('Unit', 'text_domain'),
+            'archives'=> __('Item Archives', 'text_domain'),
+            'attributes'=> __('Item Attributes', 'text_domain'),
+            'parent_item_colon'=> __('Parent Item:', 'text_domain'),
+            'all_items'=> __('All Items', 'text_domain'),
+            'add_new_item'=> __('Add New Item', 'text_domain'),
+            'add_new'=> __('Add New', 'text_domain'),
+            'new_item'=> __('New Item', 'text_domain'),
+            'edit_item'=> __('Edit Item', 'text_domain'),
+            'update_item'=> __('Update Item', 'text_domain'),
+            'view_item'=> __('View Item', 'text_domain'),
+            'view_items'=> __('View Items', 'text_domain'),
+            'search_items'=> __('Search Item', 'text_domain'),
+            'not_found'=> __('Not found', 'text_domain'),
+            'not_found_in_trash'=> __('Not found in Trash', 'text_domain'),
+            'featured_image'=> __('Featured Image', 'text_domain'),
+            'set_featured_image'=> __('Set featured image', 'text_domain'),
+            'remove_featured_image'=> __('Remove featured image', 'text_domain'),
+            'use_featured_image'=> __('Use as featured image', 'text_domain'),
+            'insert_into_item'=> __('Insert into item', 'text_domain'),
+            'uploaded_to_this_item'=> __('Uploaded to this item', 'text_domain'),
+            'items_list'=> __('Items list', 'text_domain'),
+            'items_list_navigation'=> __('Items list navigation', 'text_domain'),
+            'filter_items_list'=> __('Filter items list', 'text_domain'),
+        );
+        $args=array('label'=> __('Unit', 'text_domain'),
+            'description'=> __('Description', 'text_domain'),
+            'labels'=> $labels,
+            'supports'=> ['title'],
+            'hierarchical'=> false,
+            'public'=> true,
+            'show_ui'=> true,
+            'show_in_menu'=> true,
+            'menu_position'=> 5,
+            'menu_icon'=> 'dashicons-admin-home',
+            'show_in_admin_bar'=> true,
+            'show_in_nav_menus'=> true,
+            'can_export'=> true,
+            'has_archive'=> true,
+            'exclude_from_search'=> false,
+            'publicly_queryable'=> true,
+            'capability_type'=> 'page',
+            'show_in_rest'=> true,
+        );
+        register_post_type('unit', $args);
+    }
+
+    //======================================================================
+    // CREATE CUSTOM POST TYPE
+    //======================================================================    
+    static function amenities() {
+        $labels=array('name'=> _x('Ameneties', 'Event General Name', 'text_domain'),
+            'singular_name'=> _x('Amenity', 'Event Singular Name', 'text_domain'),
+            'menu_name'=> __('Ameneties', 'text_domain'),
+            'name_admin_bar'=> __('Unit', 'text_domain'),
+            'archives'=> __('Item Archives', 'text_domain'),
+            'attributes'=> __('Item Attributes', 'text_domain'),
+            'parent_item_colon'=> __('Parent Item:', 'text_domain'),
+            'all_items'=> __('All Items', 'text_domain'),
+            'add_new_item'=> __('Add New Item', 'text_domain'),
+            'add_new'=> __('Add New', 'text_domain'),
+            'new_item'=> __('New Item', 'text_domain'),
+            'edit_item'=> __('Edit Item', 'text_domain'),
+            'update_item'=> __('Update Item', 'text_domain'),
+            'view_item'=> __('View Item', 'text_domain'),
+            'view_items'=> __('View Items', 'text_domain'),
+            'search_items'=> __('Search Item', 'text_domain'),
+            'not_found'=> __('Not found', 'text_domain'),
+            'not_found_in_trash'=> __('Not found in Trash', 'text_domain'),
+            'featured_image'=> __('Featured Image', 'text_domain'),
+            'set_featured_image'=> __('Set featured image', 'text_domain'),
+            'remove_featured_image'=> __('Remove featured image', 'text_domain'),
+            'use_featured_image'=> __('Use as featured image', 'text_domain'),
+            'insert_into_item'=> __('Insert into item', 'text_domain'),
+            'uploaded_to_this_item'=> __('Uploaded to this item', 'text_domain'),
+            'items_list'=> __('Items list', 'text_domain'),
+            'items_list_navigation'=> __('Items list navigation', 'text_domain'),
+            'filter_items_list'=> __('Filter items list', 'text_domain'),
+        );
+        $args=array('label'=> __('Amenity', 'text_domain'),
+            'description'=> __('Description', 'text_domain'),
+            'labels'=> $labels,
+            'supports'=> ['title'],
+            'hierarchical'=> false,
+            'public'=> true,
+            'show_ui'=> true,
+            'show_in_menu'=> true,
+            'menu_position'=> 5,
+            'menu_icon'=> 'dashicons-admin-home',
+            'show_in_admin_bar'=> true,
+            'show_in_nav_menus'=> true,
+            'can_export'=> true,
+            'has_archive'=> true,
+            'exclude_from_search'=> false,
+            'publicly_queryable'=> true,
+            'capability_type'=> 'page',
+            'show_in_rest'=> true,
+        );
+        register_post_type('amenity', $args);
+    }
+
+    //======================================================================
+    // CREATE CUSTOM POST TYPE
+    //======================================================================    
+    static function places() {
+        $labels=array('name'=> _x('Places', 'Event General Name', 'text_domain'),
+            'singular_name'=> _x('Place', 'Event Singular Name', 'text_domain'),
+            'menu_name'=> __('Places', 'text_domain'),
+            'name_admin_bar'=> __('Places', 'text_domain'),
+            'archives'=> __('Item Archives', 'text_domain'),
+            'attributes'=> __('Item Attributes', 'text_domain'),
+            'parent_item_colon'=> __('Parent Item:', 'text_domain'),
+            'all_items'=> __('All Items', 'text_domain'),
+            'add_new_item'=> __('Add New Item', 'text_domain'),
+            'add_new'=> __('Add New', 'text_domain'),
+            'new_item'=> __('New Item', 'text_domain'),
+            'edit_item'=> __('Edit Item', 'text_domain'),
+            'update_item'=> __('Update Item', 'text_domain'),
+            'view_item'=> __('View Item', 'text_domain'),
+            'view_items'=> __('View Items', 'text_domain'),
+            'search_items'=> __('Search Item', 'text_domain'),
+            'not_found'=> __('Not found', 'text_domain'),
+            'not_found_in_trash'=> __('Not found in Trash', 'text_domain'),
+            'featured_image'=> __('Featured Image', 'text_domain'),
+            'set_featured_image'=> __('Set featured image', 'text_domain'),
+            'remove_featured_image'=> __('Remove featured image', 'text_domain'),
+            'use_featured_image'=> __('Use as featured image', 'text_domain'),
+            'insert_into_item'=> __('Insert into item', 'text_domain'),
+            'uploaded_to_this_item'=> __('Uploaded to this item', 'text_domain'),
+            'items_list'=> __('Items list', 'text_domain'),
+            'items_list_navigation'=> __('Items list navigation', 'text_domain'),
+            'filter_items_list'=> __('Filter items list', 'text_domain'),
+        );
+        $args=array('label'=> __('Places', 'text_domain'),
+            'description'=> __('Description', 'text_domain'),
+            'labels'=> $labels,
+            'supports'=> ['title'],
+            'hierarchical'=> false,
+            'public'=> true,
+            'show_ui'=> true,
+            'show_in_menu'=> true,
+            'menu_position'=> 5,
+            'menu_icon'=> 'dashicons-location',
+            'show_in_admin_bar'=> true,
+            'show_in_nav_menus'=> true,
+            'can_export'=> true,
+            'has_archive'=> true,
+            'exclude_from_search'=> false,
+            'publicly_queryable'=> true,
+            'capability_type'=> 'post',
+            'show_in_rest'=> true,
+        );
+        register_post_type('place', $args);
+    }
+
+    //======================================================================
+    // CREATE CUSTOM POST TYPE
+    //======================================================================    
+    static function communities() {
+        $labels=array('name'=> _x('Communities', 'Event General Name', 'text_domain'),
+            'singular_name'=> _x('Community', 'Event Singular Name', 'text_domain'),
+            'menu_name'=> __('Communities', 'text_domain'),
+            'name_admin_bar'=> __('Communities', 'text_domain'),
+            'archives'=> __('Item Archives', 'text_domain'),
+            'attributes'=> __('Item Attributes', 'text_domain'),
+            'parent_item_colon'=> __('Parent Item:', 'text_domain'),
+            'all_items'=> __('All Items', 'text_domain'),
+            'add_new_item'=> __('Add New Item', 'text_domain'),
+            'add_new'=> __('Add New', 'text_domain'),
+            'new_item'=> __('New Item', 'text_domain'),
+            'edit_item'=> __('Edit Item', 'text_domain'),
+            'update_item'=> __('Update Item', 'text_domain'),
+            'view_item'=> __('View Item', 'text_domain'),
+            'view_items'=> __('View Items', 'text_domain'),
+            'search_items'=> __('Search Item', 'text_domain'),
+            'not_found'=> __('Not found', 'text_domain'),
+            'not_found_in_trash'=> __('Not found in Trash', 'text_domain'),
+            'featured_image'=> __('Featured Image', 'text_domain'),
+            'set_featured_image'=> __('Set featured image', 'text_domain'),
+            'remove_featured_image'=> __('Remove featured image', 'text_domain'),
+            'use_featured_image'=> __('Use as featured image', 'text_domain'),
+            'insert_into_item'=> __('Insert into item', 'text_domain'),
+            'uploaded_to_this_item'=> __('Uploaded to this item', 'text_domain'),
+            'items_list'=> __('Items list', 'text_domain'),
+            'items_list_navigation'=> __('Items list navigation', 'text_domain'),
+            'filter_items_list'=> __('Filter items list', 'text_domain'),
+        );
+        $args=array('label'=> __('Communities', 'text_domain'),
+            'description'=> __('Description', 'text_domain'),
+            'labels'=> $labels,
+            'supports'=> ['title', 'editor', 'page-attributes'],
+            'hierarchical'=> true,
+            'public'=> true,
+            'show_ui'=> true,
+            'show_in_menu'=> true,
+            'menu_position'=> 5,
+            'menu_icon'=> 'dashicons-admin-multisite',
+            'show_in_admin_bar'=> true,
+            'show_in_nav_menus'=> true,
+            'can_export'=> true,
+            'has_archive'=> false,
+            'exclude_from_search'=> false,
+            'publicly_queryable'=> true,
+            'rewrite'=> array('slug'=> 'senior-living/%state%/%city%'),
+            'capability_type'=> 'page',
+            'show_in_rest'=> true,
+        );
+        register_post_type('community', $args);
     }
 }
