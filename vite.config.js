@@ -16,7 +16,8 @@ export default defineConfig({
                     includeAbsolute: false,
                 },
                 compilerOptions: {
-                    isCustomElement: (tag) => tag === 'ion-icon',
+                    isCustomElement: (tag) => tag === 'ion-icon' 
+                    || tag === 'swiper-container' || tag === 'swiper-slide',
                 },
             },
         }),

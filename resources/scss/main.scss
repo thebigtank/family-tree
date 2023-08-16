@@ -367,12 +367,13 @@ body {
     .row {
         position: relative;
         display: grid;
-        grid-template-columns: auto 1fr;
+        grid-template-columns: 1fr 1fr;
         gap: 120px;
     }
     
     .col {
         position: relative;
+        width: 400px;
 
         &::before,
         &::after {
@@ -399,7 +400,6 @@ body {
     }
 
     .image {
-        max-width: 400px;
         width: 100%;
         height: 500px;
         overflow: hidden;
@@ -408,78 +408,96 @@ body {
     }
 
     .testimonial-content {
-        .label {
-            position: relative;
-            padding-left: 50px;
-            display: block;
-            text-transform: capitalize;
-            font-size: 19px;
-            margin-bottom: 20px;
+        width: 600px;
+        height: calc(100% + 30px);
 
-            &::before {
-                content: "";
-                position: absolute;
-                width: 26px;
-                height: 2px;
-                background-color: #000;
-                left: 0;
-                top: 50%;
-                transform: translate(0, -50%);
+        .swiper-container {
+            height: 100%;
+
+            .swiper-pagination {
+                text-align: left;
             }
         }
 
-        .title {
-            font-size: 45px;
-            font-weight: 800;
-            margin-bottom: 36px;
-            span {
+        .content {
+            .label {
+                position: relative;
+                padding-left: 50px;
                 display: block;
-                line-height: 1.2;
-                &::first-letter {
-                    text-transform: uppercase;
-                }
-            }
-        }
+                text-transform: capitalize;
+                font-size: 19px;
+                margin-bottom: 20px;
 
-        blockquote {
-            font-size: 22px;
-            opacity: 0.5;
-            font-style: italic;
-            margin-bottom: 58px;
-            line-height: 1.8;
-        }
-
-        .customer {
-            display: flex;
-            align-items: center;
-            gap: 28px;
-            .avatar {
-                max-width: 80px;
-                width: 100%;
-                height: 80px;
-                border-radius: 50%;
-                overflow: hidden;
-
-                img {
-                    height: inherit;
-                    object-fit: cover;
+                &::before {
+                    content: "";
+                    position: absolute;
+                    width: 26px;
+                    height: 2px;
+                    background-color: #000;
+                    left: 0;
+                    top: 50%;
+                    transform: translate(0, -50%);
                 }
             }
 
-            .content {
+            .title {
+                font-size: 45px;
+                font-weight: 800;
+                margin-bottom: 36px;
+                color: #142c5b;
+
                 span {
                     display: block;
-                    text-transform: capitalize;
+                    line-height: 1.2;
+
+                    &::first-letter {
+                        text-transform: uppercase;
+                    }
                 }
-                .name {
-                    font-size: 22px;
-                    font-weight: 600;
-                    margin-bottom: 8px;
+            }
+
+            blockquote {
+                font-size: 22px;
+                opacity: 0.5;
+                font-style: italic;
+                margin-bottom: 58px;
+                line-height: 1.8;
+            }
+
+            .customer {
+                display: flex;
+                align-items: center;
+                gap: 28px;
+
+                .avatar {
+                    max-width: 80px;
+                    width: 100%;
+                    height: 80px;
+                    border-radius: 50%;
+                    overflow: hidden;
+
+                    img {
+                        height: inherit;
+                        object-fit: cover;
+                    }
                 }
 
-                .role {
-                    font-size: 20px;
-                    opacity: 0.6;
+                .content {
+                    span {
+                        display: block;
+                        text-transform: capitalize;
+                    }
+
+                    .name {
+                        font-size: 22px;
+                        font-weight: 600;
+                        margin-bottom: 8px;
+                    }
+
+                    .role {
+                        font-size: 20px;
+                        opacity: 0.6;
+                    }
                 }
             }
         }

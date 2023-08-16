@@ -19,5 +19,7 @@
         "vite": "^4.0.0",
         "vue": "^3.2.41"
     },
-    "dependencies": {}
+    "dependencies": {
+        "swiper": "^10.1.0"
+    }
 }
